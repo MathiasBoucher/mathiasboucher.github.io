@@ -1,0 +1,14 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+jobs:
+  deploy:
+    uses: "seanh/ghp-pelican/.github/workflows/github_pages.yml@2d7fa362f2bb45e09402df5f8676a57f326db87d"
+    permissions:
+      contents: "read"
+      pages: "write"
+      id-token: "write"
+    with:
+      settings: "publishconf.py"
