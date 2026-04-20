@@ -11,12 +11,27 @@ from pelicanconf import *
 SITEURL = "https://mathiasboucher.github.io/"
 RELATIVE_URLS = False
 
-FEED_ALL_ATOM = "feeds/all.atom.xml"
-CATEGORY_FEED_ATOM = "feeds/{slug}.atom.xml"
-
 DELETE_OUTPUT_DIRECTORY = True
 
 # Following items are often useful when publishing
 
 # DISQUS_SITENAME = ""
 # GOOGLE_ANALYTICS = ""
+FEED_ALL_ATOM = None
+CATEGORY_FEED_ATOM = None
+TRANSLATION_FEED_ATOM = None
+AUTHOR_FEED_ATOM = None
+AUTHOR_FEED_RSS = None
+
+# Blogroll
+LINKS = (
+    #("Pelican", "https://getpelican.com/"),
+    #("Python.org", "https://www.python.org/"),
+    #("Jinja2", "https://palletsprojects.com/p/jinja/"),
+    #("You can modify those links in your config file", "#"),
+)
+
+# Social widget
+SOCIAL = (
+    
+)
