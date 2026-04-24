@@ -318,11 +318,34 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 #extras .blogroll li {float: left; margin: 0 20px 0 0; max-width: 185px;}
 
 	/* Social */
-#extras .social {
-    float: right;
-    max-width: 175px;
+.social-footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+
+  flex-wrap: nowrap; /* empêche le retour à la ligne */
 }
 
+.social-footer a {
+  text-decoration: none;
+  color: inherit;
+  white-space: nowrap; /* évite que "Linked In" casse */
+}
+
+.social-footer .sep {
+  opacity: 0.5;
+}
+
+.social-footer a:hover {
+  text-decoration: underline;
+  opacity: 1;
+}
 /*
 	About
 *****************/
