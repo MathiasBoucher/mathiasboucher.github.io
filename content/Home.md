@@ -4,9 +4,9 @@ Category: About Me
 Save_as: index.html
 
 <div style="display: flex; align-items: center;">
-  <img src="/images/profile.jpg" alt="image" width="150" style="margin-right: 15px;" />
+  <img src="/images/profile.jpg" alt="image" width="150" style="margin-right: 15px; border-radius: 7px;" />
   <p>
-    PHD Student <br> 📍 University of Rennes - IRISA/INRIA <br>✉️ mathias.boucher@irisa.fr 
+     💼 PHD Student <br> 📍 University of Rennes - IRISA/Inria <br>✉️ mathias.boucher 'at' irisa.fr 
   </p>
 </div>
 

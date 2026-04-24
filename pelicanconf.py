@@ -8,6 +8,8 @@ SITESUBTITLE = "PHD student in quantum cryptanalysis"
 PATH = "content"
 STATIC_PATHS = ["images", "files"]
 
+CATEGORY_ORDER = ["About Me","Research", "CV", "Agrégation" ]
+
 THEME = "themes/mon-theme"
 #THEME = "pelican-themes/pelican-fh5co-marble"
 
