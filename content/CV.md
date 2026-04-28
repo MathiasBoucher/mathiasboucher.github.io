@@ -5,12 +5,12 @@ Category: CV
 ## Experience
 
 ### PhD in Quantum Computing (since September 2025)
-- In Rennes, at IRISA/INRIA, in the CAPSULE team.
+- In Rennes, at IRISA/Inria, in the CAPSULE team.
 - Supervised by Pierre-Alain Fouque and Yixin Shen.
 - Quantum cryptanalysis on Euclidean lattices.
 
 ### Master's Internship (March 2025 - June 2025)
-- In Rennes, at IRISA/INRIA, in the CAPSULE team.
+- In Rennes, at IRISA/Inria, in the CAPSULE team.
 - Supervised by Yixin Shen.
 - Regev reduction and application to easily decodable lattices.
 
@@ -19,7 +19,9 @@ Category: CV
 - Supervised by Philippe Isope.
 - Analysis of functional connectivity in the cerebellum using graph theory.
 
-## Education
+<br>
+
+## Academic Path
 
 ### University of Bordeaux (2024–2025)
 - Master’s Degree in Algebra, Geometry, and Number Theory.
@@ -31,3 +33,13 @@ Category: CV
 - University Diploma ITI IRMIA++ Mathematics and Applications: research and interactions.
 
 ### CPGE Lycée Fabert (Metz, 2019–2021)
+
+
+<br>
+
+
+## Teaching
+
+### 2025-2026
+- Teaching assistant for the course "Arithmétique pour la Cybersécurité", from Christophe Mourougane, within the second-year ISTN undergraduates of Rennes (18h)
+- Teaching assistant for the course "Mathématiques 1", from Bert Wiest, within the first-year BECV undergraduates of Rennes (2×15h)
