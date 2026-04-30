@@ -1,4 +1,4 @@
-Title: Work in progress
+Title: Research
 Date: 2026-04-18
 Category: Research
 
