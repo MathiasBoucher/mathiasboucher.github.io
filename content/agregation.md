@@ -16,7 +16,7 @@ The agrégation de mathématiques is a competitive French national exam for recr
 + Ne pas choisir de développements trop exotiques. Ils sont plus difficiles à retenir, souvent moins utiles et les questions posées par le jury seront plus exigeantes. 
 + Lire les préfaces des livres utilisés pour les leçons. Cela permet parfois de comprendre comment il a été pensé et ainsi l'utiliser à bon escient.
 
-## Site Web utiles
+## Sites Web utiles
 
 + Les basiques: [Site Officiel](https://agreg.org/), [Agreg-Maths](https://agreg-maths.fr/).
-+ Les copains: [TC&WM](https://sites.google.com/view/tribalchiefandwiseman/), [Clara Genes](https://perso.eleves.ens-rennes.fr/people/clara.genes/index.html), [Alexis Guerin](https://aguerin.pages.math.cnrs.fr/).
++ Les copains: [TC&WM](https://sites.google.com/view/tribalchiefandwiseman/), [Clara Genes](https://perso.eleves.ens-rennes.fr/people/clara.genes/index.html), [Alexis Guerin](https://aguerin.pages.math.cnrs.fr/), [Damien Porcher](https://damporcher.github.io), [Laurianne Turelier](https://irma.math.unistra.fr/~turelier/).
