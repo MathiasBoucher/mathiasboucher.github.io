@@ -9,5 +9,6 @@ Category: Research
 ## Talks
 
 ### Almost Improved Quantum Lattice Sieving
+([slides](content/files/Almost_Improving_Quantum_Lattice_Sieving_JIQ2026.pdf))
  - [Journées Informatique Quantique](https://quantique.labri.fr/jiq2026/), _LaBRI Bordeaux_, January 2026.
  - [Cryptography Seminar](https://www.creachlabs.fr/en/seminars-keeping-date-latest-research/cryptography-seminar/presentations-des-nouveaux-doctorants-capsule), _IRMAR-University of Rennes_, October 2025.
