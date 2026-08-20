@@ -6,6 +6,12 @@
                         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                         <meta name="generator" content="Pelican" />
                         <title>{% block title %}{{ SITENAME|striptags }}{%endblock%}</title>
+                        <script>
+                                (function () {
+                                        var t = localStorage.getItem('theme') || 'light';
+                                        document.documentElement.setAttribute('data-theme', t);
+                                })();
+                        </script>
                         <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/{{ CSS_FILE }}" />
                         {% if FEED_ALL_ATOM %}
                                 <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_ATOM_URL %}{{ FEED_ALL_ATOM_URL }}{% else %}{{ FEED_ALL_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME|striptags }} Atom Feed" />
@@ -43,7 +49,9 @@
                                 {% endfor %}
                                 {% endfor %}
                                 {% endif %}
-                        </ul></nav>
+                        </ul>
+                        <button id="theme-toggle" type="button" aria-label="Basculer thème clair/sombre">🌙</button>
+                        </nav>
                 </header><!-- /#banner -->
                 {% block content %}
                 {% endblock %}
@@ -75,5 +83,6 @@
 
                 {% include 'analytics.html' %}
                 {% include 'disqus_script.html' %}
+                <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/theme.js"></script>
         </body>
 </html>

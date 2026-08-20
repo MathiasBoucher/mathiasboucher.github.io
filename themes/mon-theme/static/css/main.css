@@ -15,11 +15,62 @@
 @import url("typogrify.css");
 @import url("fonts.css");
 
+/***** Theme variables *****/
+:root {
+    --bg-page: #EEEEEE;
+    --text-main: #000305;
+    --bg-box: #fff;
+    --bg-box-alt: #f9f9f9;
+    --bg-quote: #f8f8f8;
+    --bg-quote-alt: #F5f5f5;
+    --bg-pre: rgb(238, 238, 238);
+    --border-light: #eee;
+    --border-lighter: #F4E3E3;
+    --accent: #00ADB5;
+    --nav-bg: #000305;
+    --nav-text: #fff;
+    --title-color: #333;
+    --link-visited-bg: #fff;
+    --author-color: #C64350;
+    --extras-link: #444;
+    --comment-footer: #888;
+    --hr-color: #EEEEEE;
+    --shadow-color: #333;
+}
+
+[data-theme="dark"] {
+    --bg-page: #121212;
+    --text-main: #e8e8e8;
+    --bg-box: #1e1e1e;
+    --bg-box-alt: #232323;
+    --bg-quote: #262626;
+    --bg-quote-alt: #2a2a2a;
+    --bg-pre: #1a1a1a;
+    --border-light: #333;
+    --border-lighter: #3a2c2c;
+    --accent: #1fd0d8;
+    --nav-bg: #050505;
+    --nav-text: #e8e8e8;
+    --title-color: #e8e8e8;
+    --link-visited-bg: #1e1e1e;
+    --author-color: #e07a89;
+    --extras-link: #ccc;
+    --comment-footer: #999;
+    --hr-color: #333;
+    --shadow-color: #000;
+}
+
+/* Transition douce entre les thèmes */
+body, #banner nav, #featured, #content, #extras, #about,
+#about-author, #comments-list blockquote, .hentry, pre {
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
 /***** Global *****/
 /* Body */
 body {
-    background: #EEEEEE;
-    color: #000305;
+    background: var(--bg-page);
+    color: var(--text-main);
     font-size: 87.5%; /* Base font size: 14px */
     font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     line-height: 1.429;
@@ -45,21 +96,21 @@ h1, h2, h3, h4, h5, h6 {
 
 h3, h4, h5, h6 { margin-top: .8em; }
 
-hr { border: 2px solid #EEEEEE; }
+hr { border: 2px solid var(--hr-color); }
 
 /* Anchors */
 a {outline: 0;}
 a img {border: 0px; text-decoration: none;}
 a:link, a:visited {
-    color: #00ADB5;
+    color: var(--accent);
     padding: 0 1px;
     text-decoration: underline;
 }
 a:hover, a:active {
-    background-color: #00ADB5;
+    background-color: var(--accent);
     color: #fff;
     text-decoration: none;
-    text-shadow: 1px 1px 1px #333;
+    text-shadow: 1px 1px 1px var(--shadow-color);
 }
 
 h1 a:hover {
@@ -105,7 +156,7 @@ dl {margin: 0 0 1.5em 0;}
 dt {font-weight: bold;}
 dd {margin-left: 1.5em;}
 
-pre{background-color:  rgb(238, 238, 238); padding: 10px; margin: 10px; overflow: auto;}
+pre{background-color: var(--bg-pre); padding: 10px; margin: 10px; overflow: auto;}
 
 /* Quotes */
 blockquote {
@@ -184,7 +235,7 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 }
 
 #banner h1 a:link, #banner h1 a:visited {
-    color: #000305;
+    color: var(--text-main);
     display: block;
     font-weight: bold;
     margin: 0 0 0 .2em;
@@ -192,7 +243,7 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 }
 #banner h1 a:hover, #banner h1 a:active {
     background: none;
-    color: #00ADB5;
+    color: var(--accent);
     text-shadow: none;
 }
 
@@ -200,7 +251,7 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 
 	/* Main Nav */
 #banner nav {
-    background: #000305;
+    background: var(--nav-bg);
     font-size: 1.143em;
     overflow: auto;
     line-height: 30px;
@@ -218,7 +269,7 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 #banner nav li {float: left; display: inline; margin: 0;}
 
 #banner nav a:link, #banner nav a:visited {
-    color: #fff;
+    color: var(--nav-text);
     display: inline-block;
     height: 30px;
     padding: 5px 1.5em;
@@ -226,7 +277,35 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 }
 #banner nav a:hover, #banner nav a:active,
 #banner nav .active a:link, #banner nav .active a:visited {
-    background: #00ADB5;
+    background: var(--accent);
+    color: #fff;
+    text-shadow: none !important;
+}
+
+/* Bouton de bascule thème, place dans la nav — même gabarit que les liens du menu */
+#theme-toggle {
+    float: right;
+    display: block;
+    box-sizing: border-box;
+    width: auto;
+    height: 40px;              /* 30px de contenu + 5px en haut et en bas */
+    line-height: 30px;
+    padding: 5px 1.5em;
+    margin: 0;
+    background-color: transparent;
+    border: 0;
+    color: var(--nav-text);
+    cursor: pointer;
+    font-size: 1em;
+    font-family: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
+#theme-toggle:hover,
+#theme-toggle:focus-visible {
+    background-color: var(--accent);
     color: #fff;
     text-shadow: none !important;
 }
@@ -245,7 +324,7 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 	Featured
 *****************/
 #featured {
-    background: #fff;
+    background: var(--bg-box);
     margin-bottom: 2em;
     overflow: hidden;
     padding: 20px;
@@ -257,24 +336,24 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 }
 
 #featured figure {
-    border: 2px solid #eee;
+    border: 2px solid var(--border-light);
     float: right;
     margin: 0.786em 2em 0 5em;
     max-width: 248px;
 }
 #featured figure img {display: block; float: right;}
 
-#featured h2 {color: #00ADB5; font-size: 1.714em; margin-bottom: 0.333em;}
+#featured h2 {color: var(--accent); font-size: 1.714em; margin-bottom: 0.333em;}
 #featured h3 {font-size: 1.429em; margin-bottom: .5em;}
 
-#featured h3 a:link, #featured h3 a:visited {color: #000305; text-decoration: none;}
+#featured h3 a:link, #featured h3 a:visited {color: var(--text-main); text-decoration: none;}
 #featured h3 a:hover, #featured h3 a:active {color: #fff;}
 
 /*
 	Body
 *****************/
 #content {
-    background: #fff;
+    background: var(--bg-box);
     margin-bottom: 2em;
     overflow: hidden;
     padding: 20px 20px;
@@ -291,18 +370,18 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 #extras {margin: 0 auto 3em auto; overflow: hidden;}
 
 #extras ul {list-style: none; margin: 0;}
-#extras li {border-bottom: 1px solid #fff;}
+#extras li {border-bottom: 1px solid var(--bg-box);}
 #extras h2 {
-    color: #00ADB5;
+    color: var(--accent);
     font-size: 1.429em;
     margin-bottom: .25em;
     padding: 0 3px;
 }
 
 #extras a:link, #extras a:visited {
-    color: #444;
+    color: var(--extras-link);
     display: block;
-    border-bottom: 1px solid #F4E3E3;
+    border-bottom: 1px solid var(--border-lighter);
     text-decoration: none;
     padding: .3em .25em;
 }
@@ -350,7 +429,7 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 	About
 *****************/
 #about {
-    background: #fff;
+    background: var(--bg-box);
     font-style: normal;
     margin-bottom: 2em;
     overflow: hidden;
@@ -364,7 +443,7 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 }
 
 #about .primary {float: left; max-width: 165px;}
-#about .primary strong {color: #C64350; display: block; font-size: 1.286em;}
+#about .primary strong {color: var(--author-color); display: block; font-size: 1.286em;}
 #about .photo {float: left; margin: 5px 20px;}
 
 #about .url:link, #about .url:visited {text-decoration: none;}
@@ -381,15 +460,15 @@ div.figure p.caption, figure p.caption { /* margin provided by figure */
 .hentry {
     display: block;
     clear: both;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-light);
     padding: 1.5em 0;
 }
 li:first-child .hentry, #content > .hentry {border: 0; margin: 0;}
 #content > .hentry {padding: 1em 0;}
 .hentry img{display : none ;}
 .entry-title {font-size: 3em; margin-bottom: 10px; margin-top: 0;}
-.entry-title a:link, .entry-title a:visited {text-decoration: none; color: #333;}
-.entry-title a:visited {background-color: #fff;}
+.entry-title a:link, .entry-title a:visited {text-decoration: none; color: var(--title-color);}
+.entry-title a:visited {background-color: var(--link-visited-bg);}
 
 .hentry .post-info * {font-style: normal;}
 
@@ -412,7 +491,7 @@ li:first-child .hentry, #content > .hentry {border: 0; margin: 0;}
 
 	/* About the Author */
 #about-author {
-    background: #f9f9f9;
+    background: var(--bg-box-alt);
     clear: both;
     font-style: normal;
     margin: 2em 0;
@@ -424,18 +503,18 @@ li:first-child .hentry, #content > .hentry {border: 0; margin: 0;}
 }
 
 #about-author strong {
-    color: #C64350;
+    color: var(--author-color);
     clear: both;
     display: block;
     font-size: 1.429em;
 }
 
-#about-author .photo {border: 1px solid #ddd; float: left; margin: 5px 1em 0 0;}
+#about-author .photo {border: 1px solid var(--border-light); float: left; margin: 5px 1em 0 0;}
 
 	/* Comments */
 #comments-list {list-style: none; margin: 0 1em;}
 #comments-list blockquote {
-    background: #f8f8f8;
+    background: var(--bg-quote);
     clear: both;
     font-style: normal;
     margin: 0;
@@ -445,9 +524,9 @@ li:first-child .hentry, #content > .hentry {border: 0; margin: 0;}
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
-#comments-list footer {color: #888; padding: .5em 1em 0 0; text-align: right;}
+#comments-list footer {color: var(--comment-footer); padding: .5em 1em 0 0; text-align: right;}
 
-#comments-list li:nth-child(2n) blockquote {background: #F5f5f5;}
+#comments-list li:nth-child(2n) blockquote {background: var(--bg-quote-alt);}
 
 	/* Add a Comment */
 #add-comment label {clear: left; float: left; text-align: left; max-width: 150px;}
