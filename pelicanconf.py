@@ -3,7 +3,7 @@ SITENAME = 'Mathias Boucher'
 SITEURL = ""
 RELATIVE_URLS = True
 
-SITESUBTITLE = "PHD Student"
+SITESUBTITLE = "PhD Student"
 
 PATH = "content"
 STATIC_PATHS = ["images", "files"]
