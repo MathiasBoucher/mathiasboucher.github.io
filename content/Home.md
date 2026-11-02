@@ -4,7 +4,7 @@ Category: About Me
 Save_as: index.html
 
 <div style="display: flex; align-items: center;">
-  <img src="/images/profile.jpg" alt="image" width="150" style="margin-right: 15px; border-radius: 7px;" />
+  <img src="/images/ma_tronche.jpg" alt="image" width="150" style="margin-right: 15px; border-radius: 7px;" />
   <p>
      💼 PhD Student <br> 📍 University of Rennes - IRISA/Inria <br>✉️ mathias.boucher 'at' irisa.fr 
   </p>
