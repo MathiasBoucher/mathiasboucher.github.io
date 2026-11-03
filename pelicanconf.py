@@ -37,6 +37,7 @@ LINKS = (
 SOCIAL = (
     ('GitHub', 'https://github.com/MathiasBoucher'),
     ('LinkedIn', 'https://linkedin.com/in/mathias-boucher-7575513a3'),
+    ('ORCID', 'https://orcid.org/0009-0007-4748-2085')
 )
 
 DEFAULT_PAGINATION = 10

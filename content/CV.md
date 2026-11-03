@@ -40,6 +40,9 @@ Category: CV
 
 ## Teaching
 
+### 2026-2027
+- Teaching assistant for the course "Mathématiques 1", from Bert Wiest, within the first-year BECV undergraduates of Rennes (2×15h)
+
 ### 2025-2026
 - Teaching assistant for the course "Arithmétique pour la Cybersécurité", from Christophe Mourougane, within the second-year ISTN undergraduates of Rennes (18h)
 - Teaching assistant for the course "Mathématiques 1", from Bert Wiest, within the first-year BECV undergraduates of Rennes (2×15h)
