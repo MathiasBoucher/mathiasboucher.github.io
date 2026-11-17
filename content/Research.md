@@ -6,13 +6,13 @@ Category: Research
 
 ## Preprint
 
-- _Cyclotomic Cosets: Hidden Subgroup and Quantum Sieving Algorithm for Prime-Power Moduli_, with [Pierre-Alain Fouque](https://www.di.ens.fr/~fouque/) and [Yixin Shen](https://yixinshen.github.io/), 2026. (Links: [arXiv](https://arxiv.org/abs/2609.34996) / [ePrint](https://eprint.iacr.org/2026/2249))
+- _Cyclotomic Cosets: Hidden Subgroup and Quantum Sieving Algorithm for Prime-Power Moduli_, with [Pierre-Alain Fouque](https://www.di.ens.fr/~fouque/) and [Yixin Shen](https://yixinshen.github.io/), 2026. (Links: [arXiv](https://arxiv.org/abs/2609.34996) / [ePrint](https://eprint.iacr.org/2026/2249)) 
 
 # Talks
 
 ## 2026
 
-- _Cyclotomic Cosets: Hidden Subgroup and Quantum Sieving Algorithm for Prime-Power Moduli_, at [Cryptography Seminar](https://www.creachlabs.fr/en/seminars-keeping-date-latest-research/cryptography-seminar/cyclotomic-cosets-hidden-subgroup-and-quantum-sieving-algorithm-prime-power-moduli), November 2026.
+- _Cyclotomic Cosets: Hidden Subgroup and Quantum Sieving Algorithm for Prime-Power Moduli_, at [Cryptography Seminar](https://www.creachlabs.fr/en/seminars-keeping-date-latest-research/cryptography-seminar/cyclotomic-cosets-hidden-subgroup-and-quantum-sieving-algorithm-prime-power-moduli), November 2026. ([slides](/files/slides_seminar_crypto.pdf))
 
 - _Almost Improving Quantum Lattice Sieving_, at [CFAIL workshop](https://www.cfail.org/copy-of-cfail-2025), August 2026. ([slides](/files/slides_CFAIL.pdf))
 
