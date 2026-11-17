@@ -16,7 +16,7 @@ Category: Research
 
 - _Almost Improving Quantum Lattice Sieving_, at [CFAIL workshop](https://www.cfail.org/copy-of-cfail-2025), August 2026. ([slides](/files/slides_CFAIL.pdf))
 
-- _The Cyclotomic Coset Problem_, at [Journée CAPSULE](https://team.inria.fr/capsule/), Juin 2026. ([slides](/files/slides_journeeCAPSULE.pdf))
+- _The Cyclotomic Coset Problem_, at [Journée CAPSULE](https://team.inria.fr/capsule/), June 2026. ([slides](/files/slides_journeeCAPSULE.pdf))
 
 - _Almost Improving Quantum Lattice Sieving_, at [Journées Informatique Quantique](https://quantique.labri.fr/jiq2026/), _LaBRI Bordeaux_, January 2026. ([slides](/files/Almost_Improving_Quantum_Lattice_Sieving_JIQ2026.pdf))
   
