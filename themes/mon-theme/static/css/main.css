@@ -540,3 +540,26 @@ li:first-child .hentry, #content > .hentry {border: 0; margin: 0;}
 
 #add-comment input[type='submit'] {float: right; margin: 0 .5em;}
 #add-comment * {margin-bottom: .5em;}
+
+
+.image-link,
+.image-link:hover,
+.image-link:focus,
+.image-link:active {
+    background: none !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+    border: none !important;
+}
+
+.image-link img {
+    transition: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+}
+
+.image-link:hover img {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+}

@@ -46,3 +46,9 @@ Category: CV
 ### 2025-2026
 - Teaching assistant for the course "Arithmétique pour la Cybersécurité", from Christophe Mourougane, within the second-year ISTN undergraduates of Rennes (18h)
 - Teaching assistant for the course "Mathématiques 1", from Bert Wiest, within the first-year BECV undergraduates of Rennes (2×15h)
+
+<br>
+
+## Mediation
+
+- Presentation as a part of the [Chiche](https://inria.fr/fr/deploiement-application-programme-1-scientifique-1-classe-chiche) program, at Lycée Jean-Victor Poncelet, November 2026.

@@ -13,5 +13,7 @@ Save_as: index.html
 I am a PhD student since September 2025 in the [CAPSULE](https://team.inria.fr/capsule/) team under the supervision of [Pierre-Alain Fouque](https://www.di.ens.fr/~fouque/) and [Yixin Shen](https://yixinshen.github.io/). The goal of my thesis is to improve the understanding of quantum security of lattice-based cryptographic schemes.
 
 <div style="text-align: center;">
-  <img src="/images/Quantum_Computing.png" width="150">
+  <a class="image-link" href="https://youtu.be/2yJgwwDcgV8?si=MkYyxJIiiujM2DHi">
+    <img src="/images/Quantum_Computing.png" width="150" />
+  </a>
 </div>
