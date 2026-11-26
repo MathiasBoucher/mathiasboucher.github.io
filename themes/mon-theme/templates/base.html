@@ -24,12 +24,35 @@
         </head>
 
         <body id="index" class="home">
-                {% include 'github.html' %}
+ {% set nav_targets = namespace(about_me=SITEURL ~ '/') %}
+
+{% for title, link in MENUITEMS|default([]) %}
+    {% if title|striptags|trim|lower == 'about me' %}
+        {% set nav_targets.about_me = link %}
+    {% endif %}
+{% endfor %}
+
+{% for cat, null in categories|default([]) %}
+    {% if cat.name|striptags|trim|lower == 'about me' %}
+        {% set nav_targets.about_me = SITEURL ~ '/' ~ cat.url %}
+    {% endif %}
+{% endfor %}
                 <header id="banner" class="body">
-                        <h1><a href="{{ SITEURL }}/">{{ SITENAME }}{% if SITESUBTITLE %} <strong>{{ SITESUBTITLE }}</strong>{% endif %}</a></h1>
+                        <h1>
+    <a href="{{ nav_targets.about_me }}">
+        {{ SITENAME }}
+        {% if SITESUBTITLE %}
+            <strong>{{ SITESUBTITLE }}</strong>
+        {% endif %}
+    </a>
+</h1>
                         <nav><ul>
                                 {% for title, link in MENUITEMS %}
-                                        <li><a href="{{ link }}">{{ title }}</a></li>
+                                        <li>
+    <a href="{% if title|striptags|trim|lower == 'about me' %}{{ about_page.url }}{% else %}{{ link }}{% endif %}">
+        {{ title }}
+    </a>
+</li>
                                 {% endfor %}
                                 {% if DISPLAY_PAGES_ON_MENU -%}
                                         {% for pg in pages %}
@@ -76,7 +99,7 @@
                 <footer id="contentinfo" class="body">
                         <address id="about" class="vcard body">
                                 Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
-                        </address>
+                        </address><!-- /#about -->
                 </footer><!-- /#contentinfo -->
 
                 {% include 'analytics.html' %}

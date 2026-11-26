@@ -16,7 +16,7 @@ Save_as: index.html
       <strong>PhD Student in Cryptography</strong><br>
       University of Rennes · IRISA / Inria<br>
       CAPSULE Team<br><br>
-      ✉️ mathias.boucher [at] irisa.fr
+      mathias.boucher [at] irisa.fr
     </p>
   </div>
 

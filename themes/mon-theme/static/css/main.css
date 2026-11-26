@@ -1181,6 +1181,32 @@ html.has-reveal .onepage-section.reveal.is-visible .section-body {
 html { scroll-padding-top: 86px; }
 .onepage-section { scroll-margin-top: 0; }
 
+/* Keep a visible gap between the floating tab bar and the first white panel.
+   The home page may use #featured, a classic #content panel, or the one-page
+   Markdown wrapper; cover all three layouts rather than assuming one class. */
+body.home #featured,
+body.home #content:not(.onepage-content) {
+    margin-top: 2rem;
+}
+
+/* The one-page wrapper is transparent, so use padding rather than a child
+   margin: this prevents margin-collapsing from hiding the intended gap. */
+body.home #content.onepage-content {
+    margin-top: 0;
+    padding-top: 2rem;
+}
+
+@media (max-width: 680px) {
+    body.home #featured,
+    body.home #content:not(.onepage-content) {
+        margin-top: 1.6rem;
+    }
+
+    body.home #content.onepage-content {
+        padding-top: 1.6rem;
+    }
+}
+
 /* -------------------------------------------------------------------------- */
 /* 12. Black text in every panel (white in the dark theme)                     */
 /* -------------------------------------------------------------------------- */
