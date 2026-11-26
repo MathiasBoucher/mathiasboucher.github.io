@@ -1,565 +1,1262 @@
 /*
-	Name: Smashing HTML5
-	Date: July 2009
-	Description: Sample layout for HTML5 and CSS3 goodness.
-	Version: 1.0
-	License: MIT <https://opensource.org/licenses/MIT>
-	Licensed by: Smashing Media GmbH <https://www.smashingmagazine.com/>
-	Original author: Enrique Ramírez <http://enrique-ramirez.com/>
-*/
+ * Personal academic theme for Pelican
+ * Visual direction: minimal, centred, calm, and readable.
+ *
+ * Keep the four brand colours below as the single source of truth.
+ * The remaining interface colours are derived from these tokens.
+ */
 
-
-/* Imports */
 @import url("reset.css");
 @import url("pygment.css");
 @import url("typogrify.css");
-@import url("fonts.css");
 
-/***** Theme variables *****/
+/* -------------------------------------------------------------------------- */
+/* 1. Design tokens — edit this block to customise the whole site              */
+/* -------------------------------------------------------------------------- */
 :root {
-    --bg-page: #EEEEEE;
-    --text-main: #000305;
-    --bg-box: #fff;
-    --bg-box-alt: #f9f9f9;
-    --bg-quote: #f8f8f8;
-    --bg-quote-alt: #F5f5f5;
-    --bg-pre: rgb(238, 238, 238);
-    --border-light: #eee;
-    --border-lighter: #F4E3E3;
-    --accent: #00ADB5;
-    --nav-bg: #000305;
-    --nav-text: #fff;
-    --title-color: #333;
-    --link-visited-bg: #fff;
-    --author-color: #C64350;
-    --extras-link: #444;
-    --comment-footer: #888;
-    --hr-color: #EEEEEE;
-    --shadow-color: #333;
+    color-scheme: light;
+
+    /* Brand colours */
+    --blue: #167D8D;
+    --navy: #071B2B;
+    --cyan: #B9E4E8;
+    --light: #EEEEEE;
+    --white: #FFFFFF;
+
+    /* Light theme */
+    --page-bg: var(--light);
+    --surface: var(--white);
+    --surface-soft: color-mix(in srgb, var(--white) 55%, var(--light));
+    --text: var(--navy);
+    --text-muted: color-mix(in srgb, var(--navy) 62%, var(--light));
+    --accent: var(--blue);
+    --accent-hover: var(--navy);
+    --border: color-mix(in srgb, var(--navy) 15%, transparent);
+    --code-bg: color-mix(in srgb, var(--light) 70%, var(--cyan));
+    --selection-bg: var(--cyan);
+    --selection-text: var(--navy);
+    --focus-ring: color-mix(in srgb, var(--blue) 42%, transparent);
+
+    /* Layout */
+    --page-width: 900px;
+    --page-gutter: 30px;
+    --content-width: 760px;
+    --content-padding: 0px;
+
+    /* Typography: system fonts keep the site fast and dependency-free. */
+    --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", sans-serif;
+    --font-heading: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                    "Segoe UI", sans-serif;
+    --font-code: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    --font-size: 16px;
+    --line-height: 1.72;
+
+    /* Portrait */
+    --profile-image-width: 190px;
+    --profile-image-radius: 12px;
+
+    /* Shape, spacing, and motion */
+    --radius: 12px;
+    --motion: 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    --motion-fast: 180ms ease;
+    --shadow-soft: 0 8px 26px color-mix(in srgb, var(--navy) 7%, transparent);
 }
 
+html[data-theme="dark"],
 [data-theme="dark"] {
-    --bg-page: #121212;
-    --text-main: #e8e8e8;
-    --bg-box: #1e1e1e;
-    --bg-box-alt: #232323;
-    --bg-quote: #262626;
-    --bg-quote-alt: #2a2a2a;
-    --bg-pre: #1a1a1a;
-    --border-light: #333;
-    --border-lighter: #3a2c2c;
-    --accent: #1fd0d8;
-    --nav-bg: #050505;
-    --nav-text: #e8e8e8;
-    --title-color: #e8e8e8;
-    --link-visited-bg: #1e1e1e;
-    --author-color: #e07a89;
-    --extras-link: #ccc;
-    --comment-footer: #999;
-    --hr-color: #333;
-    --shadow-color: #000;
+    color-scheme: dark;
+
+    --page-bg: var(--navy);
+    --surface: color-mix(in srgb, var(--navy) 91%, var(--blue));
+    --surface-soft: color-mix(in srgb, var(--navy) 83%, var(--blue));
+    --text: var(--light);
+    --text-muted: color-mix(in srgb, var(--light) 70%, var(--navy));
+    --accent: var(--cyan);
+    --accent-hover: var(--white);
+    --border: color-mix(in srgb, var(--cyan) 20%, transparent);
+    --code-bg: color-mix(in srgb, var(--navy) 88%, var(--blue));
+    --selection-bg: var(--blue);
+    --selection-text: var(--white);
+    --focus-ring: color-mix(in srgb, var(--cyan) 48%, transparent);
+    --shadow-soft: 0 8px 26px color-mix(in srgb, #000000 18%, transparent);
 }
 
-/* Transition douce entre les thèmes */
-body, #banner nav, #featured, #content, #extras, #about,
-#about-author, #comments-list blockquote, .hentry, pre {
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+/* -------------------------------------------------------------------------- */
+/* 2. Global                                                                   */
+/* -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-/***** Global *****/
-/* Body */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 28px;
+}
+
 body {
-    background: var(--bg-page);
-    color: var(--text-main);
-    font-size: 100%; /* Base font size: 14px */
-    font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    line-height: 1.429;
     margin: 0;
     padding: 0;
-    text-align: left;
+    background: var(--page-bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    transition: background-color var(--motion), color var(--motion);
 }
 
-/* Headings */
-h1 {font-size: 2em }
-h2 {font-size: 1.571em}	/* 22px */
-h3 {font-size: 1.429em}	/* 20px */
-h4 {font-size: 1.286em}	/* 18px */
-h5 {font-size: 1.143em}	/* 16px */
-h6 {font-size: 1em}		/* 14px */
-
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 400;
-    line-height: 1.1;
-    margin-bottom: .8em;
-    font-family: 'Yanone Kaffeesatz', arial, serif;
+::selection {
+    background: var(--selection-bg);
+    color: var(--selection-text);
 }
 
-h3, h4, h5, h6 { margin-top: .8em; }
-
-hr { border: 2px solid var(--hr-color); }
-
-/* Anchors */
-a {outline: 0;}
-a img {border: 0px; text-decoration: none;}
-a:link, a:visited {
-    color: var(--accent);
-    padding: 0 1px;
-    text-decoration: underline;
-}
-a:hover, a:active {
-    background-color: var(--accent);
-    color: #fff;
-    text-decoration: none;
-    text-shadow: 1px 1px 1px var(--shadow-color);
-}
-
-h1 a:hover {
-    background-color: inherit
-}
-
-/* Paragraphs */
-div.line-block,
-p { margin-top: 1em;
-    margin-bottom: 1em;}
-
-strong, b {font-weight: bold;}
-em, i {font-style: italic;}
-
-/* Lists */
-ul {
-    list-style: outside disc;
-    margin: 0em 0 0 1.5em;
-}
-
-ol {
-    list-style: outside decimal;
-    margin: 0em 0 0 1.5em;
-}
-
-li { margin-top: 0.5em;
-    margin-bottom: 0.6em; }
-
-.post-info {
-    float:right;
-    margin:10px;
-    padding:5px;
-}
-
-.post-info p{
-    margin-top: 1px;
-    margin-bottom: 1px;
-}
-
-.readmore { float: right }
-
-dl {margin: 0 0 1.5em 0;}
-dt {font-weight: bold;}
-dd {margin-left: 1.5em;}
-
-pre{background-color: var(--bg-pre); padding: 10px; margin: 10px; overflow: auto;}
-
-/* Quotes */
-blockquote {
-    margin: 20px;
-    font-style: italic;
-}
-cite {}
-
-q {}
-
-div.note {
-    float: right;
-    margin: 5px;
-    font-size: 85%;
-    max-width: 300px;
-}
-
-/* Tables */
-table {margin: .5em auto 1.5em auto; width: 98%;}
-
-	/* Thead */
-thead th {padding: .5em .4em; text-align: left;}
-thead td {}
-
-	/* Tbody */
-tbody td {padding: .5em .4em;}
-tbody th {}
-
-tbody .alt td {}
-tbody .alt th {}
-
-	/* Tfoot */
-tfoot th {}
-tfoot td {}
-
-/* HTML5 tags */
-header, section, footer,
-aside, nav, article, figure {
-    display: block;
-}
-
-/***** Layout *****/
-.body {clear: both; margin: 0 auto; max-width: 800px;}
-img { max-width: 100%; }
-img.right, figure.right, div.figure.align-right {
-    float: right;
-    margin: 0 0 2em 2em;
-}
-img.left, figure.left, div.figure.align-left {
-    float: left;
-    margin: 0 2em 2em 0;
-}
-
-/* .rst support */
-div.figure img, figure img {  /* to fill figure exactly */
+img,
+video,
+svg {
     max-width: 100%;
 }
-div.figure p.caption, figure p.caption { /* margin provided by figure */
-    margin-top: 0;
-    margin-bottom: 0;
+
+img {
+    height: auto;
 }
 
-/*
-	Header
-*****************/
-#banner {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 0.7em;
+    color: var(--text);
+    font-family: var(--font-heading);
+    font-weight: 680;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+}
+
+h1 { font-size: clamp(2rem, 4vw, 2.8rem); }
+h2 { font-size: clamp(1.55rem, 2.6vw, 2rem); }
+h3 { font-size: 1.28rem; }
+h4 { font-size: 1.12rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.92rem; }
+
+p,
+div.line-block {
+    margin: 0 0 1.15em;
+}
+
+strong,
+b { font-weight: 680; }
+em,
+i { font-style: italic; }
+
+hr {
+    height: 1px;
+    margin: 2rem 0;
+    border: 0;
+    background: var(--border);
+}
+
+a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    transition: color var(--motion-fast), text-decoration-color var(--motion-fast);
+}
+
+a:link,
+a:visited { color: var(--accent); }
+a:hover,
+a:active {
+    color: var(--accent-hover);
+    text-decoration-color: currentColor;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+}
+
+a img { border: 0; }
+
+ul,
+ol {
+    margin: 0 0 1.25em 1.45em;
+    padding: 0;
+}
+
+li { margin: 0.35em 0; }
+li::marker { color: var(--accent); }
+
+dl { margin: 0 0 1.5em; }
+dt { font-weight: 680; }
+dd { margin: 0 0 0.7em 1.5em; }
+
+blockquote {
+    margin: 1.6em 0;
+    padding: 0.2em 0 0.2em 1.2em;
+    border-left: 3px solid var(--accent);
+    color: var(--text-muted);
+}
+
+blockquote p:last-child { margin-bottom: 0; }
+cite { color: var(--text-muted); }
+
+code,
+kbd,
+samp,
+pre { font-family: var(--font-code); }
+
+code {
+    padding: 0.12em 0.35em;
+    border-radius: 4px;
+    background: var(--code-bg);
+    font-size: 0.88em;
+}
+
+pre {
+    max-width: 100%;
+    margin: 1.4em 0;
+    padding: 1.1em 1.2em;
+    overflow: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--code-bg);
+    color: var(--text);
+    font-size: 0.88em;
+    line-height: 1.65;
+    tab-size: 4;
+}
+
+pre code {
+    padding: 0;
+    background: transparent;
+    font-size: inherit;
+}
+
+table {
+    width: 100%;
+    margin: 1.3em 0 1.8em;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 0.94em;
+}
+
+thead th,
+tbody th,
+tbody td,
+tfoot td,
+tfoot th {
+    padding: 0.7em 0.8em;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    vertical-align: top;
+}
+
+thead th { font-weight: 680; }
+tbody tr:nth-child(even) { background: var(--surface-soft); }
+
+header,
+section,
+footer,
+aside,
+nav,
+article,
+figure { display: block; }
+
+/* -------------------------------------------------------------------------- */
+/* 3. Shared page width and centred header                                     */
+/* -------------------------------------------------------------------------- */
+.body {
+    width: min(var(--page-width), calc(100% - (var(--page-gutter) * 2)));
     margin: 0 auto;
-    padding: 0.8em 0 0 0;
 }
 
-	/* Banner */
+#banner {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 3rem 0 1.45rem;
+    text-align: center;
+}
+
 #banner h1 {
-    font-size: 3.571em;
-    line-height: 1.0;
-    margin-bottom: .3em;
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 730;
+    line-height: 1.12;
+    letter-spacing: -0.055em;
 }
 
-#banner h1 a:link, #banner h1 a:visited {
-    color: var(--text-main);
-    display: block;
-    font-weight: bold;
-    margin: 0 0 0 .2em;
+#banner h1 a:link,
+#banner h1 a:visited {
+    display: inline-block;
+    padding: 0;
+    color: var(--text);
     text-decoration: none;
 }
-#banner h1 a:hover, #banner h1 a:active {
-    background: none;
+
+#banner h1 a:hover,
+#banner h1 a:active {
     color: var(--accent);
+    background: transparent;
     text-shadow: none;
 }
 
-#banner h1 strong {font-size: 0.36em; font-weight: normal;}
-
-	/* Main Nav */
-#banner nav {
-    background: var(--nav-bg);
-    font-size: 1.143em;
-    overflow: auto;
-    line-height: 30px;
-    margin: 0 auto 2em auto;
-    padding: 0;
-    text-align: center;
-    max-width: 800px;
-
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+#banner h1 strong {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.38em;
+    font-weight: 480;
+    letter-spacing: 0.015em;
 }
 
-#banner nav ul {list-style: none; margin: 0 auto; max-width: 800px;}
-#banner nav li {float: left; display: inline; margin: 0;}
+.site-subtitle {
+    max-width: 620px;
+    margin: 0.7rem auto 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
 
-#banner nav a:link, #banner nav a:visited {
-    color: var(--nav-text);
+#banner nav {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 52px;
+    margin: 1.8rem auto 0;
+    padding: 0.7rem 0;
+    border: 0;
+    background: transparent;
+    font-size: 0.93rem;
+    line-height: 1.4;
+}
+
+#banner nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem 1.55rem;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#banner nav li {
+    display: block;
+    float: none;
+    margin: 0;
+    padding: 0;
+}
+
+#banner nav a:link,
+#banner nav a:visited {
     display: inline-block;
-    height: 30px;
-    padding: 5px 1.5em;
+    padding: 0.25rem 0;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--motion-fast);
+}
+
+#banner nav a:hover,
+#banner nav a:active,
+#banner nav .active a:link,
+#banner nav .active a:visited {
+    color: var(--accent);
+    background: transparent;
+    text-shadow: none;
+}
+
+/* Keep the current tab identifiable without an underline or a filled pill. */
+#banner nav .active a:link,
+#banner nav .active a:visited {
+    color: var(--text);
+    font-weight: 620;
     text-decoration: none;
 }
-#banner nav a:hover, #banner nav a:active,
-#banner nav .active a:link, #banner nav .active a:visited {
-    background: var(--accent);
-    color: #fff;
-    text-shadow: none !important;
-}
 
-/* Bouton de bascule thème, place dans la nav — même gabarit que les liens du menu */
 #theme-toggle {
-    float: right;
-    display: block;
-    box-sizing: border-box;
-    width: auto;
-    height: 40px;              /* 30px de contenu + 5px en haut et en bas */
-    line-height: 30px;
-    padding: 5px 1.5em;
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
     margin: 0;
-    background-color: transparent;
-    border: 0;
-    color: var(--nav-text);
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--accent);
     cursor: pointer;
-    font-size: 1em;
-    font-family: inherit;
-    appearance: none;
-    -webkit-appearance: none;
-    border-radius: 0;
+    font: inherit;
+    line-height: 1;
+    transition: border-color var(--motion-fast), color var(--motion-fast), background-color var(--motion-fast), transform var(--motion-fast);
 }
 
-#theme-toggle:hover,
-#theme-toggle:focus-visible {
-    background-color: var(--accent);
-    color: #fff;
-    text-shadow: none !important;
+#theme-toggle:hover {
+    border-color: var(--accent);
+    background: var(--surface-soft);
+    color: var(--accent-hover);
+    transform: rotate(12deg);
 }
 
-#banner nav li:first-child a {
-    border-top-left-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -webkit-border-top-left-radius: 5px;
-
-    border-bottom-left-radius: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-}
-
-/*
-	Featured
-*****************/
+/* -------------------------------------------------------------------------- */
+/* 4. Intro and profile photo                                                  */
+/* -------------------------------------------------------------------------- */
 #featured {
-    background: var(--bg-box);
-    margin-bottom: 2em;
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 2rem auto;
+    padding: clamp(1.7rem, 4vw, 2.5rem);
     overflow: hidden;
-    padding: 20px;
-    max-width: 760px;
-
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+    text-align: left;
+    transition: background-color var(--motion), border-color var(--motion),
+                box-shadow var(--motion);
 }
 
 #featured figure {
-    border: 2px solid var(--border-light);
-    float: right;
-    margin: 0.786em 2em 0 5em;
-    max-width: 248px;
-}
-#featured figure img {display: block; float: right;}
-
-#featured h2 {color: var(--accent); font-size: 1.714em; margin-bottom: 0.333em;}
-#featured h3 {font-size: 1.429em; margin-bottom: .5em;}
-
-#featured h3 a:link, #featured h3 a:visited {color: var(--text-main); text-decoration: none;}
-#featured h3 a:hover, #featured h3 a:active {color: #fff;}
-
-/*
-	Body
-*****************/
-#content {
-    background: var(--bg-box);
-    margin-bottom: 2em;
+    float: none;
+    width: min(var(--profile-image-width), 58vw);
+    max-width: 100%;
+    margin: 0 auto 1.35rem;
+    padding: 0;
     overflow: hidden;
-    padding: 20px 20px;
-    max-width: 760px;
-
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
+    border: 0;
+    border-radius: var(--profile-image-radius);
+    background: var(--surface-soft);
 }
 
-/*
-	Extras
-*****************/
-#extras {margin: 0 auto 3em auto; overflow: hidden;}
-
-#extras ul {list-style: none; margin: 0;}
-#extras li {border-bottom: 1px solid var(--bg-box);}
-#extras h2 {
-    color: var(--accent);
-    font-size: 1.429em;
-    margin-bottom: .25em;
-    padding: 0 3px;
-}
-
-#extras a:link, #extras a:visited {
-    color: var(--extras-link);
+#featured figure img,
+#featured img.profile-photo {
     display: block;
-    border-bottom: 1px solid var(--border-lighter);
-    text-decoration: none;
-    padding: .3em .25em;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center;
+    border-radius: var(--profile-image-radius);
+    transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1), filter 650ms ease;
 }
 
-#extras a:hover, #extras a:active {color: #fff;}
-
-	/* Blogroll */
-#extras .blogroll {
-    float: left;
-    max-width: 615px;
+/* Keep a portrait placed without <figure> centred. */
+#featured > img.profile-photo {
+    width: min(var(--profile-image-width), 58vw);
+    margin: 0 auto 1.35rem;
 }
 
-#extras .blogroll li {float: left; margin: 0 20px 0 0; max-width: 185px;}
-
-	/* Social */
-.social-footer {
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  opacity: 0.7;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem;
-
-  flex-wrap: nowrap; /* empêche le retour à la ligne */
+#featured figure:hover img,
+#featured img.profile-photo:hover {
+    transform: scale(1.025);
 }
 
-.social-footer a {
-  text-decoration: none;
-  color: inherit;
-  white-space: nowrap; /* évite que "Linked In" casse */
+#featured h2 {
+    margin-bottom: 0.45rem;
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 680;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
-.social-footer .sep {
-  opacity: 0.5;
+#featured h3 {
+    margin: 0 0 0.55rem;
+    font-size: clamp(1.45rem, 3vw, 1.9rem);
 }
 
-.social-footer a:hover {
-  text-decoration: underline;
-  opacity: 1;
+#featured p {
+    color: var(--text-muted);
 }
-/*
-	About
-*****************/
-#about {
-    background: var(--bg-box);
-    font-style: normal;
-    margin-bottom: 2em;
-    overflow: hidden;
-    padding: 20px;
+
+#featured p:last-child { margin-bottom: 0; }
+
+/* -------------------------------------------------------------------------- */
+/* 5. One-page Markdown sections                                               */
+/* -------------------------------------------------------------------------- */
+#content,
+#content.onepage-content {
+    width: 100%;
+    max-width: var(--content-width);
+    /* Centre the Markdown column in the page. */
+    margin: 0 auto 2rem;
+    overflow: visible;
+}
+
+/* The original Pelican pages use #content without .onepage-content.
+   Preserve their detached, rectangular paper panel. */
+#content:not(.onepage-content) {
+    padding: clamp(1.7rem, 4vw, 2.5rem);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+    transition: background-color var(--motion), border-color var(--motion),
+                box-shadow var(--motion);
+}
+
+/* The one-page layout is a transparent wrapper around individual Markdown cards. */
+#content.onepage-content {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.onepage-section {
+    position: relative;
+    margin: 0 0 1.4rem;
+    padding: clamp(1.7rem, 4vw, 2.5rem);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+    scroll-margin-top: 28px;
+    transition: background-color var(--motion), border-color var(--motion),
+                box-shadow var(--motion), transform var(--motion);
+}
+
+.onepage-section:first-child {
+    margin-top: 0;
+}
+
+.onepage-section:hover {
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--navy) 10%, transparent);
+}
+
+.section-title {
+    margin: 0 0 1.8rem;
+    color: var(--text);
     text-align: left;
-    max-width: 760px;
-
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
+    font-size: clamp(1.45rem, 2.8vw, 1.85rem);
+    letter-spacing: -0.04em;
 }
 
-#about .primary {float: left; max-width: 165px;}
-#about .primary strong {color: var(--author-color); display: block; font-size: 1.286em;}
-#about .photo {float: left; margin: 5px 20px;}
+.section-body {
+    width: 100%;
+    color: var(--text);
+    text-align: left;
+}
 
-#about .url:link, #about .url:visited {text-decoration: none;}
+.section-body > :first-child { margin-top: 0; }
+.section-body > :last-child { margin-bottom: 0; }
 
-#about .bio {float: right; max-width: 500px;}
+/* Keep content from becoming too wide when a Markdown table or code block is used. */
+.section-body pre,
+.section-body table {
+    max-width: 100%;
+}
 
-/*
-	Footer
-*****************/
-#contentinfo {padding-bottom: 2em; text-align: right;}
+/* Same width for every white panel, whatever its place in the templates. */
+#featured,
+#content,
+#content.onepage-content,
+.onepage-section {
+    width: min(var(--content-width), calc(100vw - (var(--page-gutter) * 2)));
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
 
-/***** Sections *****/
-/* Blog */
+/* Avoid a panel nested in a panel, which would make the inner one narrower. */
+#content:not(.onepage-content):has(.onepage-section) {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Heading scale inside the white panels: # > ## > ### > #### */
+:is(#content, .section-body, #featured) h1 { font-size: 1.6rem; }
+:is(#content, .section-body) h2 { font-size: 1.35rem; }
+:is(#content, .section-body, #featured) h3 { font-size: 1.15rem; }
+:is(#content, .section-body, #featured) h4 { font-size: 1.05rem; }
+:is(#content, .section-body, #featured) :is(h5, h6) { font-size: 1rem; }
+
+:is(#content, .onepage-section) .section-title,
+.section-title { font-size: 1.6rem; }
+#content .entry-title { font-size: 1.6rem; }
+
+/* Headings following text get some breathing room. */
+:is(#content, .section-body, #featured) * + :is(h1, h2, h3, h4, h5, h6) {
+    margin-top: 1.4em;
+}
+
+/* Discreet bullets for Markdown lists (reset.css removes them). */
+:is(#content, .section-body, #featured) :is(ul, ol):not(.social-links, .social-footer, #posts-list) {
+    margin: 0 0 1.15em;
+    padding-left: 1.35em;
+}
+
+:is(#content, .section-body, #featured) ul:not(.social-links, .social-footer, #posts-list) > li {
+    display: list-item;
+    list-style: disc outside;
+}
+
+:is(#content, .section-body, #featured) ul:not(.social-links, .social-footer, #posts-list) ul > li {
+    list-style-type: circle;
+}
+
+:is(#content, .section-body, #featured) ol:not(#posts-list) > li {
+    display: list-item;
+    list-style: decimal outside;
+}
+
+:is(#content, .section-body, #featured) li::marker {
+    color: color-mix(in srgb, var(--accent) 65%, transparent);
+    font-size: 0.9em;
+}
+
+:is(#content, .section-body, #featured) li > :is(ul, ol):not(.social-links, .social-footer, #posts-list) {
+    margin-top: 0.35em;
+    margin-bottom: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 6. Publications, article lists, and legacy Smashing HTML5 selectors         */
+/* -------------------------------------------------------------------------- */
 .hentry {
     display: block;
     clear: both;
-    border-top: 1px solid var(--border-light);
-    padding: 1.5em 0;
+    padding: 1.45rem 0;
+    border-top: 1px solid var(--border);
 }
-li:first-child .hentry, #content > .hentry {border: 0; margin: 0;}
-#content > .hentry {padding: 1em 0;}
-.hentry img{display : none ;}
-.entry-title {font-size: 3em; margin-bottom: 10px; margin-top: 0;}
-.entry-title a:link, .entry-title a:visited {text-decoration: none; color: var(--title-color);}
-.entry-title a:visited {background-color: var(--link-visited-bg);}
 
-.hentry .post-info * {font-style: normal;}
+li:first-child .hentry,
+#content > .hentry { border-top: 0; }
 
-	/* Content */
-.hentry footer {margin-bottom: 2em;}
-.hentry footer address {display: inline;}
-#posts-list footer address {display: block;}
+.entry-title {
+    margin: 0 0 0.45rem;
+    font-size: clamp(1.35rem, 2.8vw, 1.8rem);
+    line-height: 1.25;
+}
 
-	/* Blog Index */
-#posts-list {list-style: none; margin: 0;}
-#posts-list .hentry {padding-left: 10px; position: relative;}
+.entry-title a:link,
+.entry-title a:visited {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.entry-title a:hover,
+.entry-title a:active {
+    color: var(--accent);
+    background: transparent;
+}
+
+.hentry .post-info,
+.post-info {
+    margin: 0 0 0.9rem;
+    padding: 0;
+    color: var(--text-muted);
+    font-size: 0.86rem;
+}
+
+.hentry .post-info * { font-style: normal; }
+.post-info p { margin: 0.1rem 0; }
+.hentry footer { margin-bottom: 1.2rem; }
+.hentry footer address { display: inline; }
+
+#posts-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#posts-list .hentry {
+    position: relative;
+    padding-left: 0;
+}
 
 #posts-list footer {
-    left: 10px;
-    position: relative;
-    float: left;
-    top: 0.5em;
-    max-width: 190px;
+    position: static;
+    float: none;
+    max-width: none;
+    margin: 0 0 0.5rem;
+    color: var(--text-muted);
 }
 
-	/* About the Author */
-#about-author {
-    background: var(--bg-box-alt);
-    clear: both;
-    font-style: normal;
-    margin: 2em 0;
-    padding: 10px 20px 15px 20px;
+#extras {
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 0 auto 2rem;
+    overflow: visible;
+}
 
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+#extras ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#extras li { margin: 0; }
+#extras h2 {
+    margin-bottom: 0.45em;
+    color: var(--text);
+    font-size: 1.08rem;
+}
+
+#extras a:link,
+#extras a:visited {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+#extras a:hover,
+#extras a:active {
+    color: var(--accent);
+    background: transparent;
+}
+
+#extras .blogroll {
+    max-width: none;
+    float: none;
+}
+
+#extras .blogroll li {
+    display: inline-block;
+    max-width: none;
+    margin: 0 0.8rem 0 0;
+    border: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 7. Social links and footer — centred                                        */
+/* -------------------------------------------------------------------------- */
+.social-footer,
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem 1rem;
+    margin: 1.5rem auto 0;
+    padding: 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-align: center;
+    list-style: none;
+}
+
+.social-footer a,
+.social-links a {
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color var(--motion-fast), transform var(--motion-fast);
+}
+
+.social-footer a:hover,
+.social-links a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.social-footer .sep { opacity: 0.45; }
+
+#contentinfo {
+    width: 100%;
+    margin: 2.5rem auto 0;
+    padding: 1.3rem 0 2.3rem;
+    border: 0;
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    text-align: center;
+}
+
+#contentinfo p { margin: 0.6rem 0 0; }
+#contentinfo a { color: inherit; }
+
+/* -------------------------------------------------------------------------- */
+/* 8. About / author / comments compatibility                                  */
+/* -------------------------------------------------------------------------- */
+#about {
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 0 auto 2rem;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    font-style: normal;
+}
+
+#about .primary {
+    float: none;
+    max-width: none;
+}
+
+#about .primary strong {
+    display: block;
+    color: var(--accent);
+    font-size: 1.08rem;
+}
+
+#about .photo {
+    float: none;
+    display: block;
+    width: min(var(--profile-image-width), 58vw);
+    max-width: 100%;
+    margin: 0 auto 1.35rem;
+    overflow: hidden;
+    border: 0;
+    border-radius: var(--profile-image-radius);
+}
+
+#about .photo img,
+#about img.photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--profile-image-radius);
+}
+
+#about .url:link,
+#about .url:visited { text-decoration: none; }
+#about .bio { float: none; max-width: none; }
+
+#about-author {
+    clear: both;
+    margin: 2rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: transparent;
+    font-style: normal;
 }
 
 #about-author strong {
-    color: var(--author-color);
-    clear: both;
     display: block;
-    font-size: 1.429em;
+    color: var(--accent);
+    font-size: 1.05rem;
 }
 
-#about-author .photo {border: 1px solid var(--border-light); float: left; margin: 5px 1em 0 0;}
+#about-author .photo {
+    float: left;
+    max-width: 86px;
+    margin: 0.3rem 1rem 0.7rem 0;
+    border-radius: var(--radius);
+}
 
-	/* Comments */
-#comments-list {list-style: none; margin: 0 1em;}
+#comments-list {
+    margin: 0 1rem;
+    padding: 0;
+    list-style: none;
+}
+
 #comments-list blockquote {
-    background: var(--bg-quote);
     clear: both;
-    font-style: normal;
     margin: 0;
-    padding: 15px 20px;
-
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    padding: 1rem 1.2rem;
+    border: 0;
+    border-radius: var(--radius);
+    background: var(--surface-soft);
+    color: var(--text);
 }
-#comments-list footer {color: var(--comment-footer); padding: .5em 1em 0 0; text-align: right;}
 
-#comments-list li:nth-child(2n) blockquote {background: var(--bg-quote-alt);}
+#comments-list footer {
+    padding: 0.5rem 1rem 0;
+    color: var(--text-muted);
+    text-align: right;
+}
 
-	/* Add a Comment */
-#add-comment label {clear: left; float: left; text-align: left; max-width: 150px;}
-#add-comment input[type='text'],
-#add-comment input[type='email'],
-#add-comment input[type='url'] {float: left; max-width: 200px;}
+#comments-list li:nth-child(even) blockquote { background: var(--surface); }
 
-#add-comment textarea {float: left; height: 150px; max-width: 495px;}
+#add-comment label {
+    float: left;
+    clear: left;
+    max-width: 150px;
+    text-align: left;
+}
 
-#add-comment p.req {clear: both; margin: 0 .5em 1em 0; text-align: right;}
+#add-comment input[type="text"],
+#add-comment input[type="email"],
+#add-comment input[type="url"],
+#add-comment textarea {
+    max-width: 100%;
+}
 
-#add-comment input[type='submit'] {float: right; margin: 0 .5em;}
-#add-comment * {margin-bottom: .5em;}
-
+#add-comment textarea { height: 150px; }
+#add-comment p.req { clear: both; text-align: right; }
+#add-comment input[type="submit"] { float: right; }
 
 .image-link,
 .image-link:hover,
 .image-link:focus,
 .image-link:active {
-    background: none !important;
+    border: 0 !important;
+    background: transparent !important;
     box-shadow: none !important;
     text-decoration: none !important;
-    border: none !important;
 }
 
 .image-link img {
-    transition: none !important;
-    filter: none !important;
+    border-radius: var(--profile-image-radius);
     opacity: 1 !important;
+    filter: none !important;
 }
 
-.image-link:hover img {
-    transform: none !important;
-    filter: none !important;
-    opacity: 1 !important;
+/* -------------------------------------------------------------------------- */
+/* 9. Motion                                                                   */
+/* -------------------------------------------------------------------------- */
+/* Cross-document View Transitions animate navigation between site tabs.
+   Unsupported browsers keep their normal, immediate page navigation. */
+@view-transition { navigation: auto; }
+
+/* The new page arrives with a restrained lift and a soft focus transition;
+   the previous page recedes quickly to keep navigation feeling responsive. */
+::view-transition-group(root) {
+    animation-duration: 520ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(root) {
+    animation: page-leave 170ms ease-out both;
+}
+
+::view-transition-new(root) {
+    animation: page-enter 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes page-leave {
+    to {
+        opacity: 0;
+        transform: translateY(-5px);
+        filter: blur(3px);
+    }
+}
+
+@keyframes page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.995);
+        filter: blur(6px);
+    }
+    68% {
+        opacity: 1;
+        filter: blur(0.4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* Keep the floating glass navigation visually anchored, with just a tiny
+   fade/scale as the active page changes. */
+::view-transition-group(site-tabs) {
+    animation-duration: 420ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(site-tabs) {
+    animation: tabs-leave 150ms ease-out both;
+}
+
+::view-transition-new(site-tabs) {
+    animation: tabs-enter 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes tabs-leave {
+    to { opacity: 0.72; transform: scale(0.99); }
+}
+
+@keyframes tabs-enter {
+    from { opacity: 0.72; transform: scale(0.99); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* Tabs pointing to a section of the same page: gentle fade of that panel. */
+@keyframes panel-focus {
+    from { opacity: 0.35; }
+    to   { opacity: 1; }
+}
+
+.onepage-section:target {
+    animation: panel-focus 900ms ease-out;
+}
+
+/* Same effect when the anchor is inside the panel (e.g. on its title). */
+.onepage-section:has(:target) {
+    animation: panel-focus 900ms ease-out;
+}
+
+/* Firefox fallback: simple fade-in when a page opens. */
+@supports (-moz-appearance: none) {
+    #featured,
+    #content {
+        animation: soft-fade 600ms ease-out backwards;
+    }
+}
+
+@keyframes soft-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* When site.js is present, one-page Markdown text reveals on scroll instead
+   of playing the page-load animation. Only the Markdown body is animated. */
+html.has-reveal .onepage-section.reveal .section-body {
+    opacity: 0;
+    transition: opacity 800ms ease-out;
+}
+
+html.has-reveal .onepage-section.reveal.is-visible .section-body {
+    opacity: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 10. Responsive and accessibility                                            */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 680px) {
+    :root {
+        --page-gutter: 20px;
+        --profile-image-width: 165px;
+    }
+
+    #banner { padding-top: 2.2rem; }
+    #banner h1 { padding: 0 52px; }
+    #banner nav ul { gap: 0.35rem 1rem; }
+
+    #featured { margin-top: 1.6rem; }
+    #content:not(.onepage-content) { padding: 1.6rem; }
+    .onepage-section { padding: 1.6rem; }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: normal;
+    }
+}
+
+@media (max-width: 440px) {
+    :root {
+        --page-gutter: 15px;
+        --profile-image-width: 145px;
+    }
+
+    body { font-size: 15px; }
+    #banner { padding-top: 1.7rem; }
+    #banner nav { padding: 0.65rem 0; }
+    #banner nav ul { gap: 0.25rem 0.75rem; }
+    #banner nav a { font-size: 0.9rem; }
+    #theme-toggle { top: 0.5rem; right: 0.6rem; }
+    #featured { padding: 1.25rem; }
+    #content:not(.onepage-content) { padding: 1.25rem; }
+    .onepage-section { padding: 1.25rem; }
+    .social-footer,
+    .social-links { gap: 0.35rem 0.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    @view-transition { navigation: none; }
+
+    ::view-transition-group(root),
+    ::view-transition-old(root),
+    ::view-transition-new(root),
+    ::view-transition-group(site-tabs),
+    ::view-transition-old(site-tabs),
+    ::view-transition-new(site-tabs) {
+        animation: none !important;
+    }
+
+    html { scroll-behavior: auto; }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    #featured,
+    #content,
+    .onepage-section,
+    #content .entry-content,
+    #content .section-body {
+        animation: none !important;
+    }
+
+    html.has-reveal .onepage-section.reveal .section-body {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media print {
+    :root {
+        --page-bg: var(--white);
+        --surface: var(--white);
+        --text: var(--navy);
+        --accent: var(--navy);
+    }
+
+    body { background: var(--white); color: var(--navy); font-size: 11pt; }
+    #banner nav,
+    #theme-toggle,
+    .social-footer,
+    .social-links { display: none !important; }
+    #banner,
+    #featured,
+    #content,
+    #about,
+    #contentinfo {
+        width: 100%;
+        max-width: none;
+        border: 0;
+        padding-right: 0;
+        padding-left: 0;
+        background: var(--white);
+        box-shadow: none;
+    }
+
+    a { color: var(--navy); text-decoration: none; }
+    pre { white-space: pre-wrap; }
+    #content .entry-content,
+    #content .section-body { animation: none !important; }
+    html.has-reveal .onepage-section.reveal .section-body { opacity: 1; transform: none; }
+}
+/* -------------------------------------------------------------------------- */
+/* 11. Floating tab bar                                                        */
+/* -------------------------------------------------------------------------- */
+/* The header box is removed from layout so the tabs can stay stuck while the
+   whole page scrolls. */
+#banner {
+    display: contents;
+}
+
+#banner h1 {
+    width: min(var(--page-width), calc(100% - (var(--page-gutter) * 2)));
+    margin: 0 auto;
+    padding-top: 3rem;
+    text-align: center;
+}
+
+.site-subtitle { text-align: center; }
+
+#banner nav {
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+    width: fit-content;
+    max-width: calc(100% - (var(--page-gutter) * 2));
+    min-height: 0;
+    margin: 1.4rem auto 0;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 26px;
+    /* A translucent, local glass layer keeps scrolling text from competing
+       with the navigation while leaving the rest of the page untouched. */
+    background: color-mix(in srgb, var(--surface) 84%, transparent);
+    box-shadow: var(--shadow-soft);
+    -webkit-backdrop-filter: blur(22px) saturate(135%);
+    backdrop-filter: blur(22px) saturate(135%);
+    view-transition-name: site-tabs;
+}
+
+html { scroll-padding-top: 86px; }
+.onepage-section { scroll-margin-top: 0; }
+
+/* -------------------------------------------------------------------------- */
+/* 12. Black text in every panel (white in the dark theme)                     */
+/* -------------------------------------------------------------------------- */
+:is(#featured, #content, .onepage-section) :is(p, li, dd, blockquote, cite) {
+    color: var(--text);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 13. Monochrome theme icons                                                  */
+/* -------------------------------------------------------------------------- */
+/* Hide the emoji or image inserted by the template or script. */
+#theme-toggle { font-size: 0 !important; }
+#theme-toggle > * { display: none !important; }
+
+/* Light theme: outlined moon. */
+#theme-toggle::before {
+    content: "";
+    width: 17px;
+    height: 17px;
+    background: currentColor;
+    -webkit-mask: var(--theme-icon) center / contain no-repeat;
+    mask: var(--theme-icon) center / contain no-repeat;
+    --theme-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 15A9 9 0 0 1 9 4a8.5 8.5 0 1 0 11 11z'/%3E%3C/svg%3E");
+}
+
+/* Dark theme: outlined sun. */
+[data-theme="dark"] #theme-toggle::before {
+    --theme-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.500 17.500L19 19M5 19l1.500-1.500M17.500 6.500L19 5'/%3E%3C/svg%3E");
+}
+
+@media print {
+    #banner nav { display: none !important; }
+}
+
+/* Theme button inside the floating bar, after the tabs. */
+#banner nav {
+    flex-wrap: nowrap;
+    gap: 1rem;
+    padding: 0.4rem 0.5rem 0.4rem 1.4rem;
+}
+
+#banner nav ul { min-width: 0; }
+
+#banner nav #theme-toggle {
+    position: static;
+    flex: none;
+}
+
+@media (max-width: 440px) {
+    #banner nav { gap: 0.6rem; padding: 0.4rem 0.4rem 0.4rem 1rem; }
+}
+/* -------------------------------------------------------------------------- */
+/* 14. Frosted tab bar: soften Markdown panels as they pass underneath          */
+/* -------------------------------------------------------------------------- */
+/* The translucent surface lets backdrop-filter blur the cards and text directly
+   behind the sticky navigation. The layered shadow makes the overlap readable
+   even on browsers that do not support backdrop-filter. */
+#banner nav {
+    isolation: isolate;
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    border-color: color-mix(in srgb, var(--text) 14%, transparent);
+    box-shadow:
+        0 16px 38px color-mix(in srgb, var(--navy) 15%, transparent),
+        0 4px 12px color-mix(in srgb, var(--navy) 9%, transparent),
+        inset 0 1px 0 color-mix(in srgb, var(--white) 48%, transparent);
+    -webkit-backdrop-filter: blur(30px) saturate(145%);
+    backdrop-filter: blur(30px) saturate(145%);
+}
+
+/* A fine inner highlight gives the glass edge definition without adding
+   another visible pill or changing the dimensions of the tab bar. */
+#banner nav::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--white) 24%, transparent);
+    pointer-events: none;
 }
