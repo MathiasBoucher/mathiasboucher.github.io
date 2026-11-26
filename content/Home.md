@@ -3,7 +3,8 @@ Date: 2026-04-18
 Category: About Me
 Save_as: index.html
 
-<div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 2rem;">
+<div style="display: flex; justify-content: center; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 2rem;">
+
   <img src="/images/ma_tronche.jpg"
        alt="Mathias Boucher"
        width="160"
@@ -15,11 +16,11 @@ Save_as: index.html
       <strong>PhD Student in Cryptography</strong><br>
       University of Rennes · IRISA / Inria<br>
       CAPSULE Team<br><br>
-       mathias.boucher [at] irisa.fr
-</p>
+      ✉️ mathias.boucher [at] irisa.fr
+    </p>
   </div>
-</div>
 
+</div>
 ---
 
 I joined the [CAPSULE](https://team.inria.fr/capsule/) team in September 2025
