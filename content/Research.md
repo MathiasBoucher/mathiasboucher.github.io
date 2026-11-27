@@ -2,11 +2,19 @@ Title: Research
 Date: 2026-04-18
 Category: Research
 
+<p align="center">
+  <a href="#publications">Publications</a> •
+  <a href="#talks">Conférences</a> •
+  <a href="#poster">Posters</a>
+</p>
+
 # Publications
 
 ## Preprint
 
-- _Cyclotomic Cosets: Hidden Subgroup and Quantum Sieving Algorithm for Prime-Power Moduli_, with [Pierre-Alain Fouque](https://www.di.ens.fr/~fouque/) and [Yixin Shen](https://yixinshen.github.io/), 2026. (Links: [arXiv](https://arxiv.org/abs/2609.34996) / [ePrint](https://eprint.iacr.org/2026/2249)) 
+- _Cyclotomic Cosets: Hidden Subgroup and Quantum Sieving Algorithm for Prime-Power Moduli_, with [Pierre-Alain Fouque](https://www.di.ens.fr/~fouque/) and [Yixin Shen](https://yixinshen.github.io/), 2026. (Links: [arXiv](https://arxiv.org/abs/2609.34996) / [ePrint](https://eprint.iacr.org/2026/2249))
+
+<br>
 
 # Talks
 
@@ -23,6 +31,8 @@ Category: Research
 ## 2025
 
  - _About Quantum Lattice Sieving_, at [Cryptography Seminar](https://www.creachlabs.fr/en/seminars-keeping-date-latest-research/cryptography-seminar/presentations-des-nouveaux-doctorants-capsule), _IRMAR-University of Rennes_, October 2025.
+
+<br>
 
 # Poster
   _Cyclotomic Cosets for Generalized Hidden Shift Problems_, at [European Cyber Week](https://lercier.pages.math.cnrs.fr/pqc-workshop-2026/fr.html#s5), November 2026. ([poster](/files/Poster_ECW.pdf))

@@ -3,12 +3,12 @@ SITENAME = 'Mathias Boucher'
 SITEURL = ""
 RELATIVE_URLS = True
 
-SITESUBTITLE = "PhD Student"
+SITESUBTITLE = "personnal webpage"
 
 PATH = "content"
 STATIC_PATHS = ["images", "files"]
 
-CATEGORY_ORDER = ["About Me","Research", "CV", "Agrégation" ]
+CATEGORY_ORDER = ["About Me","Research", "CV", "Teaching" ]
 
 THEME = "themes/mon-theme"
 #THEME = "pelican-themes/pelican-fh5co-marble"

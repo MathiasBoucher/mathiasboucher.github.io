@@ -1,6 +1,31 @@
-Title: Agrégation
+Title: Teaching
 Date: 2026-04-19
-Category: Agrégation
+Category: Teaching
+
+<p align="center">
+  <a href="#teaching">Enseignement</a> •
+  <a href="#mediation">Médiation</a> •
+  <a href="#agrégation">Agrégation</a>
+</p>
+# Teaching
+
+## 2026-2027
+- Teaching assistant for the course "Mathématiques 1", from Bert Wiest, within the first-year BECV undergraduates of Rennes (2×15h)
+
+## 2025-2026
+- Teaching assistant for the course "Arithmétique pour la Cybersécurité", from Christophe Mourougane, within the second-year ISTN undergraduates of Rennes (18h)
+- Teaching assistant for the course "Mathématiques 1", from Bert Wiest, within the first-year BECV undergraduates of Rennes (2×15h)
+
+<br>
+
+# Mediation
+
+- Presentation as a part of the [Chiche](https://inria.fr/fr/deploiement-application-programme-1-scientifique-1-classe-chiche) program, at Lycée Jean-Victor Poncelet, November 2026.
+
+<br>
+
+
+# Agrégation
 
 The agrégation de mathématiques is a competitive French national exam for recruiting advanced mathematics teachers. This section is written in French because the exam itself is in French.
 
