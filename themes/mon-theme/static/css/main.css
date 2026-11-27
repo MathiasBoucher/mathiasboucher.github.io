@@ -58,8 +58,8 @@
 
     /* Shape, spacing, and motion */
     --radius: 12px;
-    --motion: 420ms cubic-bezier(0.22, 1, 0.36, 1);
-    --motion-fast: 180ms ease;
+    --motion: 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    --motion-fast: 220ms cubic-bezier(0.22, 1, 0.36, 1);
     --shadow-soft: 0 8px 26px color-mix(in srgb, var(--navy) 7%, transparent);
 }
 
@@ -92,8 +92,11 @@ html[data-theme="dark"],
 }
 
 html {
+    /* Native smooth scrolling for in-page links. Cross-page tab navigation is
+       sequenced by navigation-scroll.js; CSS alone cannot set scroll duration. */
     scroll-behavior: smooth;
-    scroll-padding-top: 28px;
+    scroll-padding-top: 32px;
+    scroll-restoration: auto;
 }
 
 body {
@@ -917,85 +920,80 @@ li:first-child .hentry,
     filter: none !important;
 }
 
+/* Global micro-interactions: avoid abrupt changes in controls and links. */
+:is(a, button, input, textarea, select, #theme-toggle) {
+    transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+    transition-duration: var(--motion-fast);
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
 /* -------------------------------------------------------------------------- */
 /* 9. Motion                                                                   */
 /* -------------------------------------------------------------------------- */
-/* Cross-document View Transitions: keep the page itself static and animate
-   only the white content panels. Unsupported browsers keep normal navigation. */
+/* Cross-document View Transitions: keep the page chrome static and animate
+   only the content panels. Unsupported browsers retain normal navigation. */
 @view-transition { navigation: auto; }
 
-/* The root snapshot contains the title, subtitle, navigation and page chrome.
-   Disabling its animation keeps all of those elements perfectly still. */
+/* Keep the title, subtitle, navigation and other page chrome still. */
 ::view-transition-group(root),
 ::view-transition-old(root),
 ::view-transition-new(root) {
     animation: none !important;
 }
 
-/* Give each possible page panel its own unique transition name. For the
-   one-page layout, the transparent #content wrapper groups its white cards. */
+/* Give each possible page panel its own transition name. For the one-page
+   layout, the transparent #content wrapper groups its white cards. */
 #featured { view-transition-name: featured-panel; }
 #content:not(.onepage-content) { view-transition-name: content-panel; }
 #content.onepage-content { view-transition-name: onepage-panels; }
 
-/* Only the Markdown/card surfaces receive the soft fade, lift and focus effect. */
+/* Cross-fade transition: the previous panel fades away while the incoming
+   panel fades in at the same place. Both snapshots remain stationary, so the
+   change feels like one paper surface gently dissolving into the next. */
 ::view-transition-group(featured-panel),
 ::view-transition-group(content-panel),
 ::view-transition-group(onepage-panels) {
-    animation-duration: 520ms;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation: none !important;
 }
 
 ::view-transition-old(featured-panel),
 ::view-transition-old(content-panel),
 ::view-transition-old(onepage-panels) {
-    animation: panel-leave 170ms ease-out both;
+    mix-blend-mode: normal;
+    animation: panel-disappear 420ms ease-in-out both;
 }
 
 ::view-transition-new(featured-panel),
 ::view-transition-new(content-panel),
 ::view-transition-new(onepage-panels) {
-    animation: panel-enter 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    mix-blend-mode: normal;
+    animation: panel-appear 420ms ease-in-out both;
 }
 
-@keyframes panel-leave {
-    to {
-        opacity: 0;
-        transform: translateY(-5px);
-        filter: blur(3px);
-    }
+@keyframes panel-disappear {
+    from { opacity: 1; }
+    to   { opacity: 0; }
 }
 
-@keyframes panel-enter {
-    from {
-        opacity: 0;
-        transform: translateY(14px) scale(0.995);
-        filter: blur(6px);
-    }
-    68% {
-        opacity: 1;
-        filter: blur(0.4px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-    }
+@keyframes panel-appear {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
-/* Tabs pointing to a section of the same page: gentle fade of that panel. */
+/* Same-page tabs simply bring the target section into focus. */
 @keyframes panel-focus {
-    from { opacity: 0.35; }
+    from { opacity: 0.82; }
     to   { opacity: 1; }
 }
 
 .onepage-section:target {
-    animation: panel-focus 900ms ease-out;
+    animation: panel-focus 420ms ease-out;
 }
 
 /* Same effect when the anchor is inside the panel (e.g. on its title). */
 .onepage-section:has(:target) {
-    animation: panel-focus 900ms ease-out;
+    animation: panel-focus 420ms ease-out;
 }
 
 /* Firefox fallback: simple fade-in when a page opens. */
@@ -1015,7 +1013,7 @@ li:first-child .hentry,
    of playing the page-load animation. Only the Markdown body is animated. */
 html.has-reveal .onepage-section.reveal .section-body {
     opacity: 0;
-    transition: opacity 800ms ease-out;
+    transition: opacity 650ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html.has-reveal .onepage-section.reveal.is-visible .section-body {
@@ -1285,4 +1283,147 @@ body.home #content.onepage-content {
     border-radius: inherit;
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--white) 24%, transparent);
     pointer-events: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 15. Tab cursor: one capsule that glides on hover and between pages          */
+/* -------------------------------------------------------------------------- */
+:root {
+    /* Rhythm: change these two values to adjust the whole animation. */
+    --tab-duration: 300ms;
+    --tab-easing: cubic-bezier(0.4, 0, 0.2, 1); /* no overshoot */
+}
+
+#banner nav { padding-left: 0.6rem; }
+
+/* No gap between tabs: the capsule does not jump back to the active tab while
+   the pointer travels from one tab to the next. */
+#banner nav ul {
+    position: relative;
+    isolation: isolate; /* keeps the capsule behind the labels */
+    gap: 0.2rem 0;
+}
+
+#banner nav li { padding: 0.14rem 0.78rem; }
+
+#banner nav a:link,
+#banner nav a:visited {
+    transition: color var(--tab-duration) var(--tab-easing);
+}
+
+#banner nav a:hover,
+#banner nav li.active a:link,
+#banner nav li.active a:visited { color: var(--text); }
+
+/* Static capsule for browsers without CSS anchor positioning. */
+#banner nav li.active {
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+}
+
+@supports (anchor-name: --tab) and (top: anchor(top)) {
+    #banner nav li.active {
+        background: transparent;
+        anchor-name: --tab;
+    }
+
+    #banner nav ul::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        position-anchor: --tab;
+        top: anchor(top);
+        right: anchor(right);
+        bottom: anchor(bottom);
+        left: anchor(left);
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+        box-shadow:
+            inset 0 1px 0 color-mix(in srgb, var(--white) 35%, transparent),
+            0 3px 12px color-mix(in srgb, var(--accent) 12%, transparent);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+            top var(--tab-duration) var(--tab-easing),
+            right var(--tab-duration) var(--tab-easing),
+            bottom var(--tab-duration) var(--tab-easing),
+            left var(--tab-duration) var(--tab-easing),
+            opacity 160ms ease;
+        view-transition-name: active-tab-cursor;
+    }
+
+    #banner nav ul:has(> li.active)::before { opacity: 1; }
+
+    /* Keyboard: the capsule follows the focused tab. */
+    #banner nav ul:has(a:focus-visible) > li.active { anchor-name: none; }
+    #banner nav ul > li:has(a:focus-visible),
+    #banner nav ul > li.active:has(a:focus-visible) { anchor-name: --tab; }
+    #banner nav ul:has(a:focus-visible)::before { opacity: 1; }
+
+    /* Mouse: the hovered tab becomes the anchor and takes priority. When the
+       pointer leaves, the capsule glides back to the active tab. */
+    @media (hover: hover) {
+        #banner nav ul:has(> li:hover) > li:not(:hover) { anchor-name: none; }
+        #banner nav ul > li:hover { anchor-name: --tab; }
+        #banner nav ul:has(> li:hover)::before { opacity: 1; }
+    }
+}
+
+/* Page changes. Elements with a transition name are drawn as separate layers,
+   in paint order: bar, then capsule, then labels. Naming the labels keeps them
+   above the moving capsule. Add lines if you have more than eight tabs. */
+#banner nav { view-transition-name: tab-bar; }
+#banner nav li:nth-child(1) a { view-transition-name: tab-label-1; }
+#banner nav li:nth-child(2) a { view-transition-name: tab-label-2; }
+#banner nav li:nth-child(3) a { view-transition-name: tab-label-3; }
+#banner nav li:nth-child(4) a { view-transition-name: tab-label-4; }
+#banner nav li:nth-child(5) a { view-transition-name: tab-label-5; }
+#banner nav li:nth-child(6) a { view-transition-name: tab-label-6; }
+#banner nav li:nth-child(7) a { view-transition-name: tab-label-7; }
+#banner nav li:nth-child(8) a { view-transition-name: tab-label-8; }
+
+::view-transition-group(active-tab-cursor) {
+    animation-duration: var(--tab-duration);
+    animation-timing-function: var(--tab-easing);
+}
+
+/* No cross-fade for the bar, capsule or labels: show only the new snapshot,
+   which avoids flashing and doubled text. */
+::view-transition-old(tab-bar),
+::view-transition-old(active-tab-cursor),
+::view-transition-old(tab-label-1),
+::view-transition-old(tab-label-2),
+::view-transition-old(tab-label-3),
+::view-transition-old(tab-label-4),
+::view-transition-old(tab-label-5),
+::view-transition-old(tab-label-6),
+::view-transition-old(tab-label-7),
+::view-transition-old(tab-label-8) { display: none; }
+
+::view-transition-new(tab-bar),
+::view-transition-new(active-tab-cursor),
+::view-transition-new(tab-label-1),
+::view-transition-new(tab-label-2),
+::view-transition-new(tab-label-3),
+::view-transition-new(tab-label-4),
+::view-transition-new(tab-label-5),
+::view-transition-new(tab-label-6),
+::view-transition-new(tab-label-7),
+::view-transition-new(tab-label-8) {
+    animation: none;
+    opacity: 1;
+    mix-blend-mode: normal;
+}
+
+/* The capsule snapshot follows the size of its group while it moves. */
+::view-transition-new(active-tab-cursor) {
+    width: 100%;
+    height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #banner nav a,
+    #banner nav ul::before { transition: none !important; }
+
+    ::view-transition-group(active-tab-cursor) { animation: none !important; }
 }

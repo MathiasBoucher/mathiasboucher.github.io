@@ -2,11 +2,6 @@ Title: Teaching
 Date: 2026-04-19
 Category: Teaching
 
-<p align="center">
-  <a href="#teaching">Enseignement</a> •
-  <a href="#mediation">Médiation</a> •
-  <a href="#agrégation">Agrégation</a>
-</p>
 # Teaching
 
 ## 2026-2027

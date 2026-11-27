@@ -2,12 +2,6 @@ Title: Research
 Date: 2026-04-18
 Category: Research
 
-<p align="center">
-  <a href="#publications">Publications</a> •
-  <a href="#talks">Conférences</a> •
-  <a href="#poster">Posters</a>
-</p>
-
 # Publications
 
 ## Preprint
